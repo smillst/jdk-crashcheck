@@ -49,7 +49,7 @@ cd ${SRCDIR}
 JAVA_FILES_ARG_FILE=${WORKDIR}/log/args.txt
 for d in ${PACKAGES} ; do
     # Skip files that don't compile.
-    find $d -name "*.java" -not -name "sun/tools/jconsole/JConsole.java" -not -name "sun/tools/jconsole/AboutDialog.java" >> ${JAVA_FILES_ARG_FILE}
+    find $d -name "*.java" -not -name "JConsole.java" -not -name "AboutDialog.java" >> ${JAVA_FILES_ARG_FILE}
 done
 echo "Crash check"
 ${CF_JAVAC} -g -d ${BINDIR} ${JFLAGS} -processor ${PROCESSORS} ${PFLAGS}\
