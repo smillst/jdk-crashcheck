@@ -50,18 +50,6 @@ SI_DIRS=`find java javax jdk org com sun \( -name META_INF -o -name dc\
  -o -name example -o -name jconsole -o -name pept -o -name snmp \) -prune\
  -o -type d \( -name internal -o -name security \) -print`
 
-## Is this needed??
-# The bootstrap JDK, built from the same source as the final result but
-# without any Checker Framework processors, obviates building the entire
-# JDK source distribution.  You don't want to build the JDK from source.
-#echo "build bootstrap JDK"
-#find ${SI_DIRS} ${DIRS} -maxdepth 1 -name '*\.java' -print | xargs\
-# ${LT_JAVAC} -g -d ${BOOTDIR} ${JFLAGS} -source 8 -target 8 -encoding ascii\
-# -cp ${CP} | tee ${WORKDIR}/log/0.log
-#[ $? -ne 0 ] && exit 1
-#grep -q 'not found' ${WORKDIR}/log/0.log
-#(cd ${BOOTDIR} && jar cf ../jdk.jar *)
-
 # These packages are interdependent and cannot be compiled individually.
 # Compile them all together.
 echo "build internal and security packages"
