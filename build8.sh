@@ -31,13 +31,8 @@ CF_JAVAC="java -Xmx512m -jar ${CF_JAR} -Xbootclasspath/p:${BOOTDIR}"
 CP="${BINDIR}:${BOOTDIR}:${LT_BIN}:${TOOLSJAR}:${CF_BIN}:${CF_JAR}"
 JFLAGS="-XDignore.symbol.file=true -Xmaxerrs 20000 -Xmaxwarns 20000\
  -source 8 -target 8 -encoding ascii -cp ${CP}"
-#PROCESSORS="org.checkerframework.common.value.ValueChecker"
-#PROCESSORS="nullness"
 PFLAGS="-Anocheckjdk -Aignorejdkastub -AuseDefaultsForUncheckedCode=source\
  -AprintErrorStack -Awarns -Afilenames  -AsuppressWarnings=all "
-
-##Not working on Travis for some reason
-#set -o pipefail
 
 rm -rf ${BOOTDIR} ${BINDIR} ${WORKDIR}/log
 mkdir -p ${BOOTDIR} ${BINDIR} ${WORKDIR}/log
@@ -47,8 +42,6 @@ DIRS=`find $PACKAGES \( -name META_INF -o -name dc\
  -o -name example -o -name jconsole -o -name pept -o -name snmp\
  \) -prune -o -type d -print`
 
-# Build the remaining packages one at a time because building all of
-# them together makes the compiler run out of memory.
 JAVA_FILES_ARG_FILE=${WORKDIR}/log/args.txt
 for d in ${DIRS} ; do
     find $d -name "*.java" >> ${JAVA_FILES_ARG_FILE}
