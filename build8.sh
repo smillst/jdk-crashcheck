@@ -1,4 +1,6 @@
 #!/bin/sh
+# Fail the whole script if any command fails
+set -e
 
 # ensure CHECKERFRAMEWORK set
 if [ -z "$CHECKERFRAMEWORK" ] ; then
@@ -11,8 +13,9 @@ fi
 [ $? -eq 0 ] || (echo "CHECKERFRAMEWORK not set; exiting" && exit 1)
 
 # Compile all packages by default.
-${PACKAGES:="com java javax jdk org sun"}
-echo $PACKAGES
+if [ -z "$PACKAGES" ] ; then
+    PACKAGES="com java javax jdk org sun"
+fi
 
 # TOOLSJAR and CTSYM derived from JAVA_HOME, rest from CHECKERFRAMEWORK
 JSR308="`cd $CHECKERFRAMEWORK/.. && pwd`"   # base directory
@@ -27,10 +30,10 @@ LT_JAVAC="${JSR308}/jsr308-langtools/dist/bin/javac"
 CF_BIN="${CHECKERFRAMEWORK}/checker/build"
 CF_DIST="${CHECKERFRAMEWORK}/checker/dist"
 CF_JAR="${CF_DIST}/checker.jar"
-# com/sun/jmx/snmp/IPAcl/Parser.java has comments that are parsed as annotations, but aren't.
-CF_JAVAC="java -XDTA:noannotationsincomments -Xmx512m -jar ${CF_JAR} -Xbootclasspath/p:${BOOTDIR}"
+CF_JAVAC="java -Xmx512m -jar ${CF_JAR} -Xbootclasspath/p:${BOOTDIR}"
 CP="${BINDIR}:${BOOTDIR}:${LT_BIN}:${TOOLSJAR}:${CF_BIN}:${CF_JAR}"
-JFLAGS="-XDignore.symbol.file=true -Xmaxerrs 20000 -Xmaxwarns 20000\
+# com/sun/jmx/snmp/IPAcl/Parser.java has comments that are parsed as annotations, but aren't.
+JFLAGS=" -XDTA:noannotationsincomments -XDignore.symbol.file=true -Xmaxerrs 20000 -Xmaxwarns 20000\
  -source 8 -target 8 -encoding ascii -cp ${CP}"
 PFLAGS="-Anocheckjdk -Aignorejdkastub -AuseDefaultsForUncheckedCode=source\
  -AprintErrorStack -Awarns -Afilenames  -AsuppressWarnings=all "
@@ -39,12 +42,12 @@ rm -rf ${BOOTDIR} ${BINDIR} ${WORKDIR}/log
 mkdir -p ${BOOTDIR} ${BINDIR} ${WORKDIR}/log
 cd ${SRCDIR}
 
-DIRS=`find $PACKAGES \( -name META_INF -o -name dc\
- -o -name example -o -name jconsole -o -name pept -o -name snmp\
- \) -prune -o -type d -print`
+#DIRS=`find $PACKAGES \( -name META_INF -o -name dc\
+# -o -name example -o -name jconsole -o -name pept -o -name snmp\
+# \) -prune -o -type d -print`
 
 JAVA_FILES_ARG_FILE=${WORKDIR}/log/args.txt
-for d in ${DIRS} ; do
+for d in ${PACKAGES} ; do
     find $d -name "*.java" >> ${JAVA_FILES_ARG_FILE}
 done
 echo "Crash check"
