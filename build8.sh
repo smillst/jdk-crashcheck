@@ -27,7 +27,8 @@ LT_JAVAC="${JSR308}/jsr308-langtools/dist/bin/javac"
 CF_BIN="${CHECKERFRAMEWORK}/checker/build"
 CF_DIST="${CHECKERFRAMEWORK}/checker/dist"
 CF_JAR="${CF_DIST}/checker.jar"
-CF_JAVAC="java -Xmx512m -jar ${CF_JAR} -Xbootclasspath/p:${BOOTDIR}"
+# com/sun/jmx/snmp/IPAcl/Parser.java has comments that are parsed as annotations, but aren't.
+CF_JAVAC="java -XDTA:noannotationsincomments -Xmx512m -jar ${CF_JAR} -Xbootclasspath/p:${BOOTDIR}"
 CP="${BINDIR}:${BOOTDIR}:${LT_BIN}:${TOOLSJAR}:${CF_BIN}:${CF_JAR}"
 JFLAGS="-XDignore.symbol.file=true -Xmaxerrs 20000 -Xmaxwarns 20000\
  -source 8 -target 8 -encoding ascii -cp ${CP}"
