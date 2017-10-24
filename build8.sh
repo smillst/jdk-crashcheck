@@ -49,12 +49,12 @@ DIRS=`find $PACKAGES \( -name META_INF -o -name dc\
 
 # Build the remaining packages one at a time because building all of
 # them together makes the compiler run out of memory.
-echo "typecheck"
 JAVA_FILES_ARG_FILE=${WORKDIR}/log/args.txt
 for d in ${DIRS} ; do
     ls $d/*.java >/dev/null || continue
     ls $d/*.java >> ${JAVA_FILES_ARG_FILE}
 done
+echo "Crash check"
 ${CF_JAVAC} -g -d ${BINDIR} ${JFLAGS} -processor ${PROCESSORS} ${PFLAGS}\
  @${JAVA_FILES_ARG_FILE} 2>&1 | tee ${WORKDIR}/log/`echo "$d" | tr / .`.log
 
