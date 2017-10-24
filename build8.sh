@@ -42,14 +42,14 @@ rm -rf ${BOOTDIR} ${BINDIR} ${WORKDIR}/log
 mkdir -p ${BOOTDIR} ${BINDIR} ${WORKDIR}/log
 cd ${SRCDIR}
 
-#DIRS=`find $PACKAGES \( -name META_INF -o -name dc\
-# -o -name example -o -name jconsole -o -name pept -o -name snmp\
-# \) -prune -o -type d -print`
+# Remove subpackages that don't compile.
+DIRS=`find $PACKAGES \( -name META_INF -o -name dc\
+ -o -name example -o -name jconsole -o -name pept -o -name snmp\
+ \) -prune -o -type d -print`
 
 JAVA_FILES_ARG_FILE=${WORKDIR}/log/args.txt
-for d in ${PACKAGES} ; do
-    # Skip packages that don't compile.
-    find $d "jconsole" -prune -o  -name "*.java" -print  >> ${JAVA_FILES_ARG_FILE}
+for d in ${DIRS} ; do
+    find $d -name "*.java" >> ${JAVA_FILES_ARG_FILE}
 done
 echo "Crash check"
 ${CF_JAVAC} -g -d ${BINDIR} ${JFLAGS} -processor ${PROCESSORS} ${PFLAGS}\
