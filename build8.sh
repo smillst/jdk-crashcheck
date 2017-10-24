@@ -45,18 +45,7 @@ cd ${SRCDIR}
 
 DIRS=`find $PACKAGES \( -name META_INF -o -name dc\
  -o -name example -o -name jconsole -o -name pept -o -name snmp\
- -o -name internal -o -name security \) -prune -o -type d -print`
-SI_DIRS=`find java javax jdk org com sun \( -name META_INF -o -name dc\
- -o -name example -o -name jconsole -o -name pept -o -name snmp \) -prune\
- -o -type d \( -name internal -o -name security \) -print`
-
-# These packages are interdependent and cannot be compiled individually.
-# Compile them all together.
-echo "build internal and security packages"
-find ${SI_DIRS} -maxdepth 1 -name '*\.java' -print | xargs\
- ${CF_JAVAC} -g -d ${BINDIR} ${JFLAGS} -processor ${PROCESSORS} ${PFLAGS}\
- | tee ${WORKDIR}/log/1.log
-[ $? -ne 0 ] && exit 1
+ \) -prune -o -type d -print`
 
 # Build the remaining packages one at a time because building all of
 # them together makes the compiler run out of memory.
