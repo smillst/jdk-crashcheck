@@ -51,8 +51,7 @@ DIRS=`find $PACKAGES \( -name META_INF -o -name dc\
 # them together makes the compiler run out of memory.
 JAVA_FILES_ARG_FILE=${WORKDIR}/log/args.txt
 for d in ${DIRS} ; do
-    ls $d/*.java >/dev/null || continue
-    ls $d/*.java >> ${JAVA_FILES_ARG_FILE}
+    find $d -name "*.java" >> ${JAVA_FILES_ARG_FILE}
 done
 echo "Crash check"
 ${CF_JAVAC} -g -d ${BINDIR} ${JFLAGS} -processor ${PROCESSORS} ${PFLAGS}\
