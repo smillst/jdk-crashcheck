@@ -57,7 +57,9 @@ ${CF_JAVAC} -g -d ${BINDIR} ${JFLAGS} -processor ${PROCESSORS} ${PFLAGS}\
 
 # Check logfiles for errors and list any source files that failed to
 # compile.
+set +e
 grep 'Compilation unit: ' ${WORKDIR}/log/*
 if [ $? -ne 1 ] ; then
     exit 1
 fi
+set -e
