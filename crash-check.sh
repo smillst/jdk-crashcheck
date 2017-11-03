@@ -36,7 +36,7 @@ CP="${BINDIR}:${BOOTDIR}:${LT_BIN}:${TOOLSJAR}:${CF_BIN}:${CF_JAR}"
 JFLAGS=" -XDTA:noannotationsincomments -XDignore.symbol.file=true -Xmaxerrs 20000 -Xmaxwarns 20000\
  -source 8 -target 8 -encoding ascii -cp ${CP}"
 PFLAGS="-Anocheckjdk -Aignorejdkastub -AuseDefaultsForUncheckedCode=source\
- -AprintErrorStack -Awarns -AsuppressWarnings=all "
+ -AprintErrorStack -Awarns -AsuppressWarnings=all -Afilenames "
 
 rm -rf ${BOOTDIR} ${BINDIR} ${WORKDIR}/log
 mkdir -p ${BOOTDIR} ${BINDIR} ${WORKDIR}/log
