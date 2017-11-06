@@ -55,8 +55,7 @@ echo "Crash check"
 ${CF_JAVAC} -g -d ${BINDIR} ${JFLAGS} -processor ${PROCESSORS} ${PFLAGS}\
  @${JAVA_FILES_ARG_FILE} 2>&1 | tee ${WORKDIR}/log/`echo "$d" | tr / .`.log
 
-# Check logfiles for errors and list any source files that failed to
-# compile.
+# Check logfiles for errors and list any source files that caused the Checker Framework to crash.
 set +e
 grep 'Compilation unit: ' ${WORKDIR}/log/*
 if [ $? -ne 1 ] ; then
