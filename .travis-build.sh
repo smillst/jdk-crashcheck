@@ -8,7 +8,11 @@ ROOT=$TRAVIS_BUILD_DIR/..
 export CHECKERFRAMEWORK=$ROOT/checker-framework
 
 ## Obtain annotated-jdk8u-jdk
-(cd $ROOT && hg clone -q https://bitbucket.org/typetools/annotated-jdk8u-jdk)
+# Contains annotations that were removed from the Checker Framework
+# (cd $ROOT && hg clone -q https://bitbucket.org/typetools/annotated-jdk8u-jdk)
+
+## Obtain jdk8u-jdk
+(cd $ROOT && hg clone -q http://hg.openjdk.java.net/jdk8u/jdk8u/jdk)
 
 ## Jdk
 ## Compile all the packages for the following checkers:
