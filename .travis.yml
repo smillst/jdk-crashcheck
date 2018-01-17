@@ -10,6 +10,7 @@ env:
   - GROUP=index
   - GROUP=interning
   - GROUP=lock
+  - GROUP=nullness
   - GROUP=regex
   - GROUP=signature
   - GROUP=value
