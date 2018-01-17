@@ -24,6 +24,8 @@ elif [[ "$1" == "index" ]]; then
   PROCESSORS=index ./crash-check.sh
 elif [[ "$1" == "lock" ]]; then
   PROCESSORS=lock ./crash-check.sh
+elif [[ "$1" == "nullness" ]]; then
+  PROCESSORS=nullness ./crash-check.sh
 elif [[ "$1" == "regex" ]]; then
   PROCESSORS=regex ./crash-check.sh
 elif [[ "$1" == "signature" ]]; then
