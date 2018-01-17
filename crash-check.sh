@@ -56,6 +56,4 @@ ${CF_JAVAC} -g -d ${BINDIR} ${JFLAGS} -processor ${PROCESSORS} ${PFLAGS}\
  @${JAVA_FILES_ARG_FILE} 2>&1 | tee ${WORKDIR}/log/`echo "$d" | tr / .`.log
 
 # Print all the compilation units with Checker Framework crashes.
-set +e
-grep 'Compilation unit: ' ${WORKDIR}/log/*
-set -e
+grep 'Compilation unit: ' ${WORKDIR}/log/* || true
