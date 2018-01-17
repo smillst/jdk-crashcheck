@@ -20,6 +20,8 @@ if [[ "$1" == "formatter" ]]; then
   PROCESSORS=formatter ./crash-check.sh
 elif [[ "$1" == "interning" ]]; then
   PROCESSORS=interning ./crash-check.sh
+elif [[ "$1" == "index" ]]; then
+  PROCESSORS=index ./crash-check.sh
 elif [[ "$1" == "lock" ]]; then
   PROCESSORS=lock ./crash-check.sh
 elif [[ "$1" == "regex" ]]; then
