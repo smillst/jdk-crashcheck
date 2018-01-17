@@ -7,6 +7,7 @@ sudo: false
 env:
 # These checkers complete in 50 min or less on the whole jdk.
   - GROUP=formatter
+  - GROUP=index
   - GROUP=interning
   - GROUP=lock
   - GROUP=regex
