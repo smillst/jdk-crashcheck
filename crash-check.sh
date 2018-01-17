@@ -20,7 +20,7 @@ fi
 # TOOLSJAR and CTSYM derived from JAVA_HOME, rest from CHECKERFRAMEWORK
 JSR308="`cd $CHECKERFRAMEWORK/.. && pwd`"   # base directory
 WORKDIR="${CHECKERFRAMEWORK}/checker/jdk"   # working directory
-AJDK="${JSR308}/jdk"        # annotated JDK
+AJDK="${JSR308}/annotated-jdk8u-jdk"        # annotated JDK
 SRCDIR="${AJDK}/src/share/classes"
 BINDIR="${WORKDIR}/build"
 BOOTDIR="${WORKDIR}/bootstrap"              # initial build w/o processors
@@ -56,5 +56,5 @@ ${CF_JAVAC} -g -d ${BINDIR} ${JFLAGS} -processor ${PROCESSORS} ${PFLAGS}\
  @${JAVA_FILES_ARG_FILE} 2>&1 | tee ${WORKDIR}/log/`echo "$d" | tr / .`.log
 
 # Print all the compilation units with Checker Framework crashes.
-set +e
-grep 'Compilation unit: ' ${WORKDIR}/log/*
+#set +e
+#grep 'Compilation unit: ' ${WORKDIR}/log/*
