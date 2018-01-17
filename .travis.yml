@@ -7,18 +7,18 @@ sudo: false
 env:
 # These checkers complete in 50 min or less on the whole jdk.
   - GROUP=formatter
-#  - GROUP=interning
-#  - GROUP=lock
-#  - GROUP=regex
-#  - GROUP=signature
-#  - GROUP=value
+  - GROUP=interning
+  - GROUP=lock
+  - GROUP=regex
+  - GROUP=signature
+  - GROUP=value
 
 # These checkers complete in 50 min or more on the whole jdk, so split the jobs
 # in two or three.
-#  - GROUP=nullness-fbc-sun-javax
-#  - GROUP=nullness-fbc-java-com-jdk-org
-#  - GROUP=nullness-raw-sun-javax
-#  - GROUP=nullness-raw-java-com-jdk-org
+  - GROUP=nullness-fbc-sun-javax
+  - GROUP=nullness-fbc-java-com-jdk-org
+  - GROUP=nullness-raw-sun-javax
+  - GROUP=nullness-raw-java-com-jdk-org
 
 script: ./.travis-build.sh $GROUP
 
